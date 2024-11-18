@@ -1,0 +1,53 @@
+# Start with the latest rbatch
+FROM openapx/rbuilder:latest-ubuntu
+
+
+# -- dockerfile scaffolding
+#    (1) add license file to root directory
+#    (2) directory scaffolding
+
+COPY LICENSE /LICENSE-rdevworkbench
+RUN  chmod u+r-wx,g+r-wx,o+r-wx /LICENSE-rdevworkbench && \
+     mkdir -p /opt/openapx/config/rdevworkbench
+
+
+# -- configuration files
+#    note: this is the input location for Shell scripts below
+#    note: wildcard trick on libs-* is to copy if it exists
+
+COPY libs-ubunt* /opt/openapx/config/rdevworkbench/
+
+RUN find /opt/openapx/config/rdevworkbench -type f -exec chmod u+r-wx,g+r-wx,o-rwx {} \; && \
+    find /opt/openapx/config/rdevworkbench -type d -exec chmod u+rx-w,g+rx-w,o-rwx {} \;
+
+
+# -- copy build scripts
+COPY --chmod=755 .scripts/*.sh /.scripts/
+
+
+# -- scripted sequence
+#    1) add binary library dependencies
+#    2) install workbench
+#    3) clean up
+
+RUN /opt/openapx/utilities/bin-libs.sh /opt/openapx/config/rdevworkbench/libs-ubuntu && \
+    /.scripts/install_workbench.sh https://download2.rstudio.org/server/jammy/amd64/rstudio-server-2024.04.2-764-amd64.deb && \
+    rm -Rf /.scripts /scripts /sources
+
+
+# -- configure container to run Workbench
+EXPOSE 8787
+
+COPY --chmod=755 scripts/rdevworkbench/entrypoint.sh /entrypoint.sh
+ENTRYPOINT /entrypoint.sh
+
+
+# -- add any additional utilities
+COPY --chmod=755 scripts/rdevworkbench/rdevworkbench_adduser.sh /opt/openapx/utilities/
+
+RUN find /opt/openapx/utilities -type f -exec chmod u+rx-w,g+rx-w,o-rwx {} \; && \
+    find /opt/openapx/utilities -type d -exec chmod u+rx-w,g+rx-w,o-rwx {} \;
+
+
+
+
