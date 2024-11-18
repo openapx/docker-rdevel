@@ -43,7 +43,7 @@ ENTRYPOINT /entrypoint.sh
 
 
 # -- add any additional utilities
-COPY --chmod=755 scripts/rdevworkbench/rdevworkbench_adduser.sh /opt/openapx/utilities/
+COPY --chmod=755 scripts/rdevworkbench/rworkbench_adduser.sh /opt/openapx/utilities/
 
 RUN find /opt/openapx/utilities -type f -exec chmod u+rx-w,g+rx-w,o-rwx {} \; && \
     find /opt/openapx/utilities -type d -exec chmod u+rx-w,g+rx-w,o-rwx {} \;
