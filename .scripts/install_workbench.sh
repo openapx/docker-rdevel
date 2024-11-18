@@ -3,7 +3,7 @@
 
 # utility script to install Posit Workbench 
 #
-#  install-positworkbench.sh [url]
+#  install-workbench.sh [url]
 #
 #  <url>               The URL to install
 #
@@ -156,7 +156,7 @@ EOT
 
 # create R workbench user group
 echo "-- Configuring Posit/R-Studio Workbench groups"
-groupadd rdevworkbench
+groupadd rworkbench
 
 
 # -- clean-up

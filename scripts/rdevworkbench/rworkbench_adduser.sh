@@ -3,7 +3,7 @@
 # create a local workbench user
 #
 # usage:
-#   add_rworkbench_user.sh <user>
+#   rworkbench_adduser.sh <user>
 
 
 # -- get user name 
@@ -21,7 +21,7 @@ echo "-- Creating user ${USR}"
 useradd -m ${USR}
 
 echo "   Adding user to rworkbench group"
-usermod --append --groups rdevworkbench ${USR}
+usermod --append --groups rworkbench ${USR}
 
 
 # looks complicated ... but pull the home directory fom /etc/passwd
