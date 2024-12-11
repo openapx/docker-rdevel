@@ -1,0 +1,26 @@
+# -- developer Tools
+testthat
+devtools
+codetools
+roxygen2
+uuid
+digest
+desc
+
+jsonlite
+httr2
+xml2
+zip
+
+webutils
+
+# -- REST APIs (plumber)
+plumber
+
+# -- UI Apps (shiny)
+shiny
+
+
+# -- databases
+RPostgreSQL
+

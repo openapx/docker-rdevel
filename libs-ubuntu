@@ -1,1 +1,16 @@
-# -- nothing at the moment
+# -- git
+git
+git-lfs
+
+# -- devtools dependencies
+libxml2-dev
+libharfbuzz-dev 
+libfribidi-dev
+
+
+# -- plumber dependency chain
+libsodium-dev
+
+# -- database
+postgresql
+libpq-dev
