@@ -9,7 +9,10 @@ if ( ! dir.exists( save_sources_to ) && ! dir.create( save_sources_to, recursive
 
 
 # -- identify packages spec
-xspec <- "/opt/openapx/config/rdevworkbench/packages"
+xspec <- Sys.getenv( "PCKG_FILE", unset = NA )
+
+if ( is.na(xspec) )
+  stop( "No package file" )
 
 
 # -- deploy specification

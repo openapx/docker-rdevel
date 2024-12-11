@@ -1,8 +1,24 @@
 #! /bin/bash
 
+# utility script to install R packages
+# usage 
+#
+#  install-rpackages.sh [file]
+#
+#     
+#  <file>               List of R packages. Use # for comments
+#
+#
+
+# for now ... no options so just $1
+export PCKG_FILE=${1}
+
+
+echo "-- installing R packages"
+
 
 # -- set up directory structures
-echo "-- setting up script scaffolding"
+echo "   setting up script scaffolding"
 mkdir -p /sources /scripts /logs/R/rdevworkbench
 
 
@@ -20,16 +36,18 @@ for R_VERSION in $( ls /opt/R | grep "^[0-9].[0-9].[0-9]$" ); do
 
   # identify lib directory .. sometime it is lib .. on others it is lib64 ... use ../R/library/base/DESCRIPTION (package) as trigger
 
-  echo -n "-- identify lib vs lib64 for R ${R_VERSION}"
+  echo -n "   identify lib vs lib64 for R ${R_VERSION}"
   RLIBX=$( find /opt/R/${R_VERSION} -type f -name DESCRIPTION | grep "/R/library/base/DESCRIPTION$" | awk -F/ '{print $5}' )
   echo "  ... found ${RLIBX}"
 
 
   # - install packages
 
+  echo "   using install routine $(dirname $0)/R/install_packages.R"
+
   if [ -f "$(dirname $0)/R/install_packages.R" ]; then
 
-    echo "-- deploying packages for R ${R_VERSION}"
+    echo "   deploying packages for R ${R_VERSION}"
 
     echo "   initiate /sources/packages directory"
     mkdir -p /sources/packages
@@ -72,4 +90,4 @@ done
 # -- end of update for each R version
 
 
-echo "-- init complete"
+echo "-- installing R packages complete"
