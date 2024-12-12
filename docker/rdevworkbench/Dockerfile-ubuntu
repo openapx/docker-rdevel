@@ -32,7 +32,6 @@ COPY .scripts/R/*.R /.scripts/R/
 #    3) clean up
 
 RUN /opt/openapx/utilities/bin-libs.sh /opt/openapx/config/rdevworkbench/libs-ubuntu && \
-    /.scripts/install_rpackages.sh /opt/openapx/config/rdevworkbench/packages && \
     /.scripts/install_workbench.sh https://download2.rstudio.org/server/jammy/amd64/rstudio-server-2024.04.2-764-amd64.deb && \
     rm -Rf /.scripts /scripts /sources
 
